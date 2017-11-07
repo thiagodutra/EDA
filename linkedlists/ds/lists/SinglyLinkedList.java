@@ -1,11 +1,27 @@
 package ds.lists;
-
+/**
+ * SinglyLinkedList creates a LinkedList
+ * without the 'nil' element, so, at the end
+ * the node points to null instead of nil
+ * 
+ * @author Thiago Dutra
+ *
+ */
 public class SinglyLinkedList {
 	private Node first;
 
+	/**
+	 * Empty Constructor
+	 */
 	public SinglyLinkedList() {
 	}
-
+	/**
+	 * isEmpty returns if there isn't elements in the list
+	 * or if there is a list at all
+	 * @return <code>true</code> if the list is empty or if
+	 * there isn't a list yet.
+	 * <code>false</code> otherwise
+	 */
 	public boolean isEmpty() {
 		return first == null;
 	}
@@ -48,8 +64,15 @@ public class SinglyLinkedList {
 	
 	// ----------------> Inicio dos Métodos Recursivos <----------------
 	
-	//Imprime Recursivamente
-	public void printListRecursively (Node list) {
+	
+	/**
+	 * Prints the list recursively
+	 * 
+	 * @param list 		the first node of the list
+	 * 					can be retrieved by obj.getFirst
+	 * @see 			SinglyLinkedList#getFirst()
+	 */
+	public void printListRecursively (Node list) {		//Imprime Recursivamente
 		if (list == null)
 	      return;
 	    else {
@@ -57,15 +80,33 @@ public class SinglyLinkedList {
 	      printListRecursively(list.getNext());
 	    }
 	  }
-	//Retorna o tamanho da lista
-	public int lengthRecursively (Node list) {
+	/**
+	 * Returns the length of the linked list
+	 * how many elements the list contains
+	 * 
+	 * @param list		the first node of the list
+	 * 					can be retrieved by obj.getFirst
+	 * @return			0 if the list is null,
+	 * 					sum of the number of nodes, otherwise
+	 */
+	public int lengthRecursively (Node list) {			//Retorna o tamanho da lista
 	    if (list == null)
 	      return 0;
 	    else
 	      return 1 + lengthRecursively(list.getNext());
 	  }
-	//Procura um elemento na lista
-	public int findRecursively (Node list, int value) {
+	
+	/**
+	 * Searches if an element is in the list
+	 * @param list		the first node of the list
+	 * 					can be retrieved by obj.getFirst
+	 * @param value		value to be found
+	 * @return			-1 if the element is not found
+	 * 					Node#getElement() when found
+	 * 
+	 * @see				Node#getElement()
+	 */
+	public int findRecursively (Node list, int value) {	//Procura um elemento na lista
 	    if (list == null)
 	      return -1;
 	    else
@@ -75,8 +116,12 @@ public class SinglyLinkedList {
 	        return findRecursively(list.getNext(), value);
 	  }
 	
-	//Getters Setters
-	public Node getFirst() {
+	/**
+	 * Access the first node of the list
+	 * @return			Returns the first node of the list
+	 * 					the one in the head of the list
+	 */
+	public Node getFirst() {							//Getters Setters
 		return first;
 	}
 
