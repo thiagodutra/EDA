@@ -3,7 +3,8 @@ import ds.lists.Node;
 
 /**
  * Circular List
- * 
+ * Has the 'last' attribute pointer (always pointing to the last element)
+ *  
  * 
  * @author Thiago Dutra
  *

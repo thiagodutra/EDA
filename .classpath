@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="stackqueues"/>
 	<classpathentry kind="src" path="linkedlists"/>
 	<classpathentry kind="src" path="circularlinkedlist"/>
+	<classpathentry kind="src" path="doublylinkedlist"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
