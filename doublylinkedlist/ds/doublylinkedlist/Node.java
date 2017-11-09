@@ -1,5 +1,15 @@
 package ds.doublylinkedlist;
 
+/**
+ * Node class contains the attributes to create a DoublyLinkedList
+ * by creating new Nodes we can link them, resulting in the LinkedList
+ * 
+ * @author Thiago Dutra
+ *
+ */
+
+
+
 public class Node {
 	private int element;
 	private Node next;

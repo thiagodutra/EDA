@@ -1,5 +1,14 @@
 package ds.doublylinkedlist;
 
+/**
+ * DoublyLinkedList uses two pointers: previous and next
+ * 
+ * @see Node
+ * 
+ * 
+ * @author Thiago Dutra
+ *
+ */
 public class DoublyLinkedList {
 	private Node first;
 	private Node last;
@@ -13,6 +22,12 @@ public class DoublyLinkedList {
 		return first == null;
 	}
 	
+	
+	/**
+	 * insertFirst()
+	 * @param data		(int) inserts a new Node in the first place of the list
+	 * 					and it becomes the new first
+	 */
 	public void insertFirst(int data) {
 		Node newNode = new Node();
 		newNode.setElement(data);
@@ -26,6 +41,11 @@ public class DoublyLinkedList {
 		this.first = newNode;						//first referenciará o novo Node 'newNode'
 	}
 	
+	/**
+	 * insertLast()
+	 * @param data		(int) inserts a new Node in the last place of the list
+	 * 					and it becomes the new last
+	 */
 	public void insertLast(int data) {
 		Node newNode = new Node();
 		newNode.setElement(data);
@@ -38,7 +58,13 @@ public class DoublyLinkedList {
 		last = newNode;								//atualiza o last
 	}
 	
-	
+	/**
+	 * deleteFirst()
+	 * 
+	 * Deletes the first node of the list, if it's not empty. And returns the deleted Node
+	 * 
+	 * @returns Node
+	 */
 	public Node deleteFirst() {
 		Node temp = first;
 		if (!isEmpty() && first.getNext() == null) {//Se a lista não estiver vazia e houver apenas um nó
@@ -50,60 +76,84 @@ public class DoublyLinkedList {
 		first = first.getNext();					//first apontará para o novo first, aquele após o antigo first (pois first já aponta para o primeiro)
 		return temp;								//retorna o nó deletado
 	}
-	
+	/**
+	 * deleteLast()
+	 * 
+	 * Deletes the last node of the list, if it's not empty. And returns the deleted Node
+	 * 
+	 * @returns Node
+	 */
 	public Node deleteLast() {
 		Node temp = last;
-		if (!isEmpty() && first.getNext() == null) {
-			first = null;
+		if (!isEmpty() && first.getNext() == null) {// se a lista não estiver vazia e houver apenas um elemento
+			first = null;							//first apontará para null
 		} else {
-			last.getPrevious().setNext(null);
+			last.getPrevious().setNext(null);		//o antecessor de last apontará para null, deixando de apontar para o antigo último
 			
 		}
-		temp.setPrevious(null);
-		last = last.getPrevious();	
+		last = last.getPrevious();					//novo last é agora o antecessor do antigo last
+		temp.setPrevious(null);						//temp que aponta para o antigo last, faz o antigo last parar de apontar para o antigo antecessor e o corta da lista.		
 		return temp;
 	}
 	
+	
+	/**
+	 * insertAfter()
+	 * Inserts a node after, if found, a specific one.
+	 * @param place				the data that you want insert after
+	 * @param data				the data of the new Node
+	 * @return					true if founds a node, false if it doesn't founds.
+	 */
 	public boolean insertAfter(int place, int data) {
-		Node current = first;
-		while (current.getElement() != place) {
-			current = current.getNext();
-			if (current == null)
+		Node current = first;							//Atual vai se referir ao first
+		while (current.getElement() != place) {			//Enquanto o dado do nó atual for diferente do dado procurado
+			current = current.getNext();				//atual move para o pŕoximo
+			if (current == null)						//se percorrer toda a lista  não achar o dado, retorna falso
 				return false;
 		}
-		Node newNode = new Node();
+		Node newNode = new Node();						//cria o novo nó
 		
-		if(current == last) {
+		if(current == last) {							//se o atual for o último, chama o método insertLast(), e retorna true
 			insertLast(data);
 			return true;
-		} else {
+		} else {										//se o elemento estiver no meio da lista, irá ser inserido na posição após
 			newNode.setElement(data);
-			newNode.setNext(current.getNext());
-			current.getNext().setPrevious(newNode);
+			newNode.setNext(current.getNext());			//faz o novo nó apontar para o próximo nó ao atual
+			current.getNext().setPrevious(newNode);		//o previous do nó após o atual apontará para o novo nó
 		}
-		newNode.setPrevious(current);
-		current.setNext(newNode);
+		newNode.setPrevious(current);					//faz o previous apontar para o nó atual, fazendo dele antecessor
+		current.setNext(newNode);						//faz o nó atual apontar para o novo nó, terminando  inserção entre dpos nós. e retorna true
 		return true;
 	}
 	
+	/**
+	 * deleteNode()
+	 * Deletes a specific Node found by the data in it.
+	 * @param data			data to be found
+	 * @return				true if deletes, false if not
+	 */
 	public Node deleteNode(int data) {
-		Node current = first;
-		while (current.getElement() != data) {
-			current = current.getNext();
-			if (current == null)
+		Node current = first;										//atual se refere ao first
+		while (current.getElement() != data) {						//enquanto o elemento a ser deletado não é encontrado, vá para o próximo
+			current = current.getNext();	
+			if (current == null)									//se não achar, retorne null (vazio)
 				return null;
 		}
-		if (current == first) {
+		if (current == first) {										//se o atual for first, retorne deleteFirst()
 			return deleteFirst();
-		} else if (current == last){
+		} else if (current == last){								//se o atual for last, retorne deleteLast()
 			return deleteLast();
 		} else {
-			current.getPrevious().setNext(current.getNext());
-			current.getNext().setPrevious(current.getPrevious());
+			current.getPrevious().setNext(current.getNext());		//se estiver no meio, antecessor aponta para o sucessor
+			current.getNext().setPrevious(current.getPrevious());	//sucessor aponta para antecessor
 		}
-		return current;
+		return current;												//retorne o atual
 	}
 	
+	/**
+	 * printListForward()
+	 * Prints the Linked List from the first to the last element
+	 */
 	public void printListForward () {
 		System.out.println("Lista (Primeiro --> Fim) ");
 		Node atual = first;
@@ -113,6 +163,10 @@ public class DoublyLinkedList {
 		}
 	}
 	
+	/**
+	 * printListBackwards()
+	 * Prints the Linked List from the Last to the First element
+	 */
 	public void printListBackwards () {
 		System.out.println("Lista (Fim --> Primeiro) ");
 		Node atual = last;
