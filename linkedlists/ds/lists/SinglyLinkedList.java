@@ -18,9 +18,8 @@ public class SinglyLinkedList implements ListaEncadeada_IF {
 	}
 	/**
 	 * isEmpty returns if there isn't elements in the list
-	 * or if there is a list at all
-	 * @return <code>true</code> if the list is empty or if
-	 * there isn't a list yet.
+	 * or, if there is a list at all
+	 * @return <code>true</code> if the list is empty or 
 	 * <code>false</code> otherwise
 	 */
 	public boolean isEmpty() {
@@ -54,7 +53,6 @@ public class SinglyLinkedList implements ListaEncadeada_IF {
 		while (current.getElement() != element) {
 			if (current.getNext() == null) {
 				throw new Exception("Elemento não encontrado");
-				
 			}
 			current = current.getNext();
 		}
@@ -63,31 +61,28 @@ public class SinglyLinkedList implements ListaEncadeada_IF {
 	
 	public void remove(int element) {
 		Node current = first;
-		if (first.getElement() == element) {
-			this.first = null;
-		} else if (first.getNext().getElement() == element) {
-			first.setNext(null);
-		} else {
-			Node aux = current.getNext();
-			while (aux.getElement() != element) {
-				if (aux.getNext() == null) {
-					System.out.println("Elemento não encontrado, portanto não foi deletado");
-					break;
-				}
-				aux = aux.getNext();
-				current = current.getNext();
-			}
-			current.setNext(aux.getNext());
-			aux.setNext(null);
+		if (first.getElement() == element) {					//se o dado estiver no primeiro elemento, 
+			first = first.getNext();							//move a primeira posição da lista à frente
+			current.setNext(null);								//faz o nó atual apontar para null
 		}
-	
+		Node aux = current.getNext();							//cria nó auxiliar, estará a frente de current
+		while (aux.getElement() != element) {
+			if (aux.getNext() == null) {						//se aux apontar para null, percorreu toda a lista  não achou o elemento
+				System.out.println("Elemento não encontrado, portanto não foi deletado");
+				break;
+			}
+			aux = aux.getNext();								//move aux
+			current = current.getNext();						//move current
+		}
+		current.setNext(aux.getNext());							//aponta current para o proximo de aux
+		aux.setNext(null);										//aux aponta para null
 	}
 	
 	public int[] toArray() {
 		int[] a;
 		if (isEmpty()) {
 			return null;
-		} else if (first.getNext() == null){
+		} else if (first.getNext() == null){					//se houve apenas um elemento
 			a = new int[1];
 			a[0] = first.getElement();
 		}
