@@ -7,13 +7,14 @@ package ds.lists;
  * @author Thiago Dutra
  *
  */
-public class SinglyLinkedList {
+public class SinglyLinkedList implements ListaEncadeada_IF {
 	private Node first;
 
 	/**
 	 * Empty Constructor
 	 */
 	public SinglyLinkedList() {
+		this.first = null;
 	}
 	/**
 	 * isEmpty returns if there isn't elements in the list
@@ -25,6 +26,84 @@ public class SinglyLinkedList {
 	public boolean isEmpty() {
 		return first == null;
 	}
+	// ------------- Inicio métodos da interface -------------
+	public int size() {
+		int size = 1;
+		Node current = first;
+		if (isEmpty())
+			return -1;
+		while (current.getNext() != null ) {
+			current = current.getNext();
+			size+=1;
+		}
+		return size;
+	}
+	
+	public void insert(int element) {
+		Node newNode = new Node();
+		newNode.setElement(element);
+		newNode.setNext(first);
+		first = newNode;
+	}
+	
+	public int search(int element) throws Exception {
+		if (isEmpty()) {
+			throw new Exception("Lista está vazia");
+		}
+		Node current = first;
+		while (current.getElement() != element) {
+			if (current.getNext() == null) {
+				throw new Exception("Elemento não encontrado");
+				
+			}
+			current = current.getNext();
+		}
+		return current.getElement();
+	}
+	
+	public void remove(int element) {
+		Node current = first;
+		if (first.getElement() == element) {
+			this.first = null;
+		} else if (first.getNext().getElement() == element) {
+			first.setNext(null);
+		} else {
+			Node aux = current.getNext();
+			while (aux.getElement() != element) {
+				if (aux.getNext() == null) {
+					System.out.println("Elemento não encontrado, portanto não foi deletado");
+					break;
+				}
+				aux = aux.getNext();
+				current = current.getNext();
+			}
+			current.setNext(aux.getNext());
+			aux.setNext(null);
+		}
+	
+	}
+	
+	public int[] toArray() {
+		int[] a;
+		if (isEmpty()) {
+			return null;
+		} else if (first.getNext() == null){
+			a = new int[1];
+			a[0] = first.getElement();
+		}
+		Node current = first;
+		int i = 0;
+		a = new int[size()];
+		while (current.getNext() != null) {
+			a[i] = current.getElement();
+			i++;
+		}
+		return a;
+	}
+	
+	
+	// ------------- Fim métodos da interface -------------
+	
 	
 	// ----------------> Inicio dos Métodos Iterativos <----------------
 	
@@ -53,7 +132,7 @@ public class SinglyLinkedList {
 		atual.setNext(newNode);
 	}
 	//Imprime os elementos da lista
-	public void printList() {
+	public void print() {
 		System.out.println("Lista (Primeiro --> Fim) ");
 		Node atual = first;
 		while (atual != null) {
