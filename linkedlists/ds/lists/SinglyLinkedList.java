@@ -82,9 +82,10 @@ public class SinglyLinkedList implements ListaEncadeada_IF {
 		int[] a;
 		if (isEmpty()) {
 			return null;
-		} else if (first.getNext() == null){					//se houve apenas um elemento
+		} else if (first.getNext() == null){					//se houver apenas um elemento
 			a = new int[1];
 			a[0] = first.getElement();
+			return a;
 		}
 		Node current = first;
 		int i = 0;
