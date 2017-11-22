@@ -14,9 +14,14 @@ public class BinarySearchTree implements BST_IF {
 		}
 
 	}
-
+	/**
+	 * isere um nó na árvore, de acordo com a lógica de inserção
+	 * para árvores binárias.
+	 * 
+	 * @param element
+	 * @param node
+	 */
 	private void insertNode(int element, BSTNode node) {
-
 		if (element < node.getElement()) {
 			if (node.getLeft() != null) {
 				insertNode(element, node.getLeft());
@@ -34,13 +39,17 @@ public class BinarySearchTree implements BST_IF {
 		}
 	}
 
+	/**
+	 * Retorna se o elemento procurado é encontrado ou não na árvore se estiver,
+	 * retorna o elemento, se não, lança uma exceção.
+	 */
 	@Override
 	public int search(int element) throws Exception {
 		if (root == null)
-			throw new Exception ("Árvore vazia"); 
+			throw new Exception("Árvore vazia");
 		return searchNode(element, root);
 	}
-	
+
 	private int searchNode(int element, BSTNode node) throws Exception {
 		if (element == node.getElement()) {
 			if (element < node.getElement()) {
@@ -51,8 +60,12 @@ public class BinarySearchTree implements BST_IF {
 			}
 			return node.getElement();
 		}
-		throw new Exception ("Elemento não encontrado.");
+		throw new Exception("Elemento não encontrado.");
 	}
+
+	/**
+	 * retorna um array de inteiros visitando os nós em pré ordem
+	 */
 
 	@Override
 	public int[] preOrder() {
@@ -70,6 +83,10 @@ public class BinarySearchTree implements BST_IF {
 		return i;
 	}
 
+	/**
+	 * retorna um array de inteiros visitando os nós em ordem
+	 */
+
 	@Override
 	public int[] order() {
 		int[] array = new int[countNodes()];
@@ -77,6 +94,21 @@ public class BinarySearchTree implements BST_IF {
 		return array;
 	}
 
+	/**
+	 * 'i' é o index atual do array a ser preenchido, então a primeira chamada para
+	 * percorrer a árvore tem que passar 0 como index de 'i'. Assumindo que o filho
+	 * esquerdo ou direito aponta para null se não houver filho desse nó. E como
+	 * está usando 'i' para mater onde estamos no array, se não tiver nenhum filho,
+	 * não incrementa o valor de i. Achando o nó mais a esquerda, e colocando ele em
+	 * array[i] depois achando o nó mais a esquerda desse e e colocando em i+1
+	 * 
+	 * @param node
+	 * @param array
+	 *            passando como parametro para armazenar o
+	 * @param i
+	 *            index do array
+	 * @return i
+	 */
 	private int inOrder(BSTNode node, int[] array, int i) {
 		if (node == null)
 			return i;
@@ -86,6 +118,9 @@ public class BinarySearchTree implements BST_IF {
 		return i;
 	}
 
+	/**
+	 * retorna um array de inteiros visitando os nós em pós ordem
+	 */
 	@Override
 	public int[] postOrder() {
 		int[] array = new int[countNodes()];
@@ -144,54 +179,68 @@ public class BinarySearchTree implements BST_IF {
 			return 1 + countNodes(node.getLeft()) + countNodes(node.getRight());
 	}
 
+	/**
+	 * Deleta um nó, verifica se é uma folha se tem apenas o filho direito ou
+	 * esquerdo e se tem dois filhos
+	 * 
+	 * @param node
+	 * @param element
+	 * @return
+	 */
 	public void delete(int element) {
 		deleteNode(root, element);
 	}
-	
+
 	private BSTNode deleteNode(BSTNode node, int element) {
-		if (node == null) 
+		if (node == null)
 			return node;
 		if (element < node.getElement()) {
 			node.setLeft(deleteNode(node.getLeft(), element));
 		} else if (element > node.getElement()) {
 			node.setRight(deleteNode(node.getRight(), element));
 		} else {
-			//Encontramos o nó a ser removidos
-			
-			//Nó é uma folha da árvore
+			// Encontramos o nó a ser removidos
+
+			// Nó é uma folha da árvore
 			if (isLeaf(node)) {
 				System.out.println("Removendo uma folha da árvore");
 				return null;
 			}
-			//Nó tem apenas o filho direito
+			// Nó tem apenas o filho direito
 			if (node.getLeft() == null) {
 				System.out.println("Removendo filho direito");
 				BSTNode newNode = node.getRight();
 				node = null;
 				return newNode;
-			//Nó tem apenas o filho esquerdo
-			} else if (node.getRight() == null){
+				// Nó tem apenas o filho esquerdo
+			} else if (node.getRight() == null) {
 				System.out.println("Removendo filho esquerdo");
 				BSTNode newNode = node.getLeft();
 				node = null;
 				return newNode;
 			}
 			System.out.println("Removendo nó com dois filhos");
-			//Caso o nó a ser removido tenha dois filhos
+			// Caso o nó a ser removido tenha dois filhos
 			BSTNode newNode = getSucessor(node.getRight());
 			node.setElement(newNode.getElement());
 			node.setLeft(deleteNode(node.getLeft(), node.getElement()));
 		}
-		
+
 		return node;
 	}
-	
+
+	/**
+	 * Encontra o sucessor do nó visitado.
+	 * 
+	 * @param node
+	 * @return node
+	 */
 	private BSTNode getSucessor(BSTNode node) {
 		if (node.getLeft() != null)
 			return getSucessor(node.getLeft());
 		return node;
 	}
-	
+
 	/**
 	 * Métodos auxiliares e de testes
 	 */
@@ -199,6 +248,7 @@ public class BinarySearchTree implements BST_IF {
 	public boolean isLeaf(BSTNode node) {
 		return (node.getLeft() == null && node.getRight() == null);
 	}
+
 	public void traversal() {
 		if (root != null) {
 			inOrderTraversal(root);
