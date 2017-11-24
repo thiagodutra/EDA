@@ -25,7 +25,7 @@ public class AVLTree implements AVL_Tree_IF {
 
 		return node;
 	}
-
+	
 	private Node resolveHeights(int element, Node node) {
 		int balance = getBalance(node);
 
@@ -51,21 +51,6 @@ public class AVLTree implements AVL_Tree_IF {
 		return node;
 	}
 
-	private Node rightRotation(Node node) {
-		System.out.println("Rotacionando para direita");
-
-		Node tempLeft = node.getLeft();
-		Node temp = tempLeft.getRight();
-
-		tempLeft.setRight(node);
-		node.setLeft(temp);
-
-		node.setHeight(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
-		tempLeft.setHeight(Math.max(height(tempLeft.getLeft()), height(tempLeft.getRight())) + 1);
-
-		return tempLeft;
-	}
-
 	private Node leftRotation(Node node) {
 		System.out.println("Rotacionando para esquerda");
 
@@ -79,6 +64,21 @@ public class AVLTree implements AVL_Tree_IF {
 		tempRight.setHeight(Math.max(height(tempRight.getLeft()), height(tempRight.getRight())) + 1);
 
 		return tempRight;
+	}
+
+	private Node rightRotation(Node node) {
+		System.out.println("Rotacionando para direita");
+
+		Node tempLeft = node.getLeft();
+		Node temp = tempLeft.getRight();
+
+		tempLeft.setRight(node);
+		node.setLeft(temp);
+
+		node.setHeight(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
+		tempLeft.setHeight(Math.max(height(tempLeft.getLeft()), height(tempLeft.getRight())) + 1);
+
+		return tempLeft;
 	}
 
 	private int height(Node node) {
@@ -97,17 +97,17 @@ public class AVLTree implements AVL_Tree_IF {
 	public void traverse() {
 		if (root == null)
 			return;
-		inOrderTraversal(root);
+		inOrder(root);
 
 	}
 
-	private void inOrderTraversal(Node node) {
+	private void inOrder(Node node) {
 		if (node.getLeft() != null) {
-			inOrderTraversal(node.getLeft());
+			inOrder(node.getLeft());
 		}
 		System.out.println(node);
 		if (node.getRight() != null) {
-			inOrderTraversal(node.getRight());
+			inOrder(node.getRight());
 		}
 	}
 
