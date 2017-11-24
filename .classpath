@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="circularlinkedlist"/>
 	<classpathentry kind="src" path="doublylinkedlist"/>
 	<classpathentry kind="src" path="binarysearchtree"/>
+	<classpathentry kind="src" path="avltree"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
