@@ -14,9 +14,10 @@ public class BinarySearchTree implements BST_IF {
 		}
 
 	}
+
 	/**
-	 * isere um nó na árvore, de acordo com a lógica de inserção
-	 * para árvores binárias.
+	 * isere um nó na árvore, de acordo com a lógica de inserção para árvores
+	 * binárias.
 	 * 
 	 * @param element
 	 * @param node
@@ -47,20 +48,25 @@ public class BinarySearchTree implements BST_IF {
 	public int search(int element) throws Exception {
 		if (root == null)
 			throw new Exception("Árvore vazia");
+		
+		if (searchNode(element, root) < 0 ) 
+			throw new Exception ("Elemento não encontrado");
+		
 		return searchNode(element, root);
 	}
 
-	private int searchNode(int element, BSTNode node) throws Exception {
-		if (element == node.getElement()) {
-			if (element < node.getElement()) {
-				searchNode(element, node.getLeft());
-			}
-			if (element > node.getElement()) {
-				searchNode(element, node.getRight());
-			}
+	private int searchNode(int element, BSTNode node) {		
+		
+		if (element == node.getElement()) 
 			return node.getElement();
-		}
-		throw new Exception("Elemento não encontrado.");
+		
+		if (element < node.getElement() && node.getLeft() != null) 
+			return searchNode(element, node.getLeft());
+		
+		if (element > node.getElement() && node.getRight() != null) 
+			return searchNode(element, node.getRight());
+	
+		return -1;
 	}
 
 	/**
@@ -221,9 +227,10 @@ public class BinarySearchTree implements BST_IF {
 			}
 			System.out.println("Removendo nó com dois filhos");
 			// Caso o nó a ser removido tenha dois filhos
-			BSTNode newNode = getSucessor(node.getRight());
-			node.setElement(newNode.getElement());
-			node.setRight(deleteNode(node.getRight(), newNode.getElement()));
+			BSTNode newNode = getSucessor(node.getRight()); // Seleciona o sucessor
+			node.setElement(newNode.getElement()); // muda os valores dos nós
+			node.setRight(deleteNode(node.getRight(), newNode.getElement())); // deleta recursivamente o nó com o qual o
+																				// valor foi trocado
 		}
 
 		return node;
