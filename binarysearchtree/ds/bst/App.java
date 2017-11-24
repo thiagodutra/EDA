@@ -15,7 +15,7 @@ public class App {
 		a.insert(54);
 		a.insert(23);
 		a.insert(31);
-		a.traversalPre();
+		a.traversalPre(); System.out.println();
 		a.delete(20);
 		System.out.println(a.countNodes());
 		System.out.println(a.height());

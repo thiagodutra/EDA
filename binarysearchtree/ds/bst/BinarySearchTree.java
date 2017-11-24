@@ -223,7 +223,7 @@ public class BinarySearchTree implements BST_IF {
 			// Caso o nó a ser removido tenha dois filhos
 			BSTNode newNode = getSucessor(node.getRight());
 			node.setElement(newNode.getElement());
-			node.setLeft(deleteNode(node.getLeft(), node.getElement()));
+			node.setRight(deleteNode(node.getRight(), newNode.getElement()));
 		}
 
 		return node;
