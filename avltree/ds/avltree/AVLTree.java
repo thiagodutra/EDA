@@ -52,7 +52,7 @@ public class AVLTree implements AVL_Tree_IF {
 	}
 
 	private Node leftRotation(Node node) {
-		System.out.println("Rotacionando para esquerda");
+		System.out.println("Rotacionando para esquerda nó: "+node);
 
 		Node tempRight = node.getRight();
 		Node temp = tempRight.getLeft();
@@ -67,7 +67,7 @@ public class AVLTree implements AVL_Tree_IF {
 	}
 
 	private Node rightRotation(Node node) {
-		System.out.println("Rotacionando para direita");
+		System.out.println("Rotacionando para direita nó: "+node);
 
 		Node tempLeft = node.getLeft();
 		Node temp = tempLeft.getRight();

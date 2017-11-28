@@ -57,13 +57,13 @@ public class BinarySearchTree implements BST_IF {
 
 	private int searchNode(int element, BSTNode node) {		
 		
-		if (element == node.getElement()) 
+		if (element == node.getElement()) //Retorna se o elemente for encontrado
 			return node.getElement();
 		
-		if (element < node.getElement() && node.getLeft() != null) 
-			return searchNode(element, node.getLeft());
+		if (element < node.getElement() && node.getLeft() != null) 	//Se o elemento procurado for menor que o dado do nó
+			return searchNode(element, node.getLeft());				//vá para esquerda, até o próximo a esquerda ser null
 		
-		if (element > node.getElement() && node.getRight() != null) 
+		if (element > node.getElement() && node.getRight() != null) //Procura na direita
 			return searchNode(element, node.getRight());
 	
 		return -1;
